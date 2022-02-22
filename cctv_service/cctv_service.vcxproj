@@ -146,11 +146,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="cctv_service.cpp" />
+    <ClCompile Include="WinDump.cpp" />
     <ClCompile Include="Log.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Log.hpp" />
     <ClInclude Include="Utils.hpp" />
+    <ClInclude Include="WinDump.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

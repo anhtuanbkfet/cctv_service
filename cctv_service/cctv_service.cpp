@@ -1,4 +1,6 @@
 #include "Utils.hpp"
+#include "WinDump.hpp"
+
 
 #define SERVICE_NAME  _T("CCTV_Service")
 
@@ -11,10 +13,14 @@ VOID WINAPI ServiceCtrlHandler(DWORD);
 DWORD WINAPI ServiceWorkerThread(LPVOID lpParam);
 
 
-
 int _tmain(int argc, TCHAR* argv[])
 {
     CCTV_LOG_DEBUG(_T("[CCTV_Service] Main: Entry"));
+
+
+    // Create a dump file whenever the gateway crashes only on windows
+    SetUnhandledExceptionFilter(HandleException);
+    //AddVectoredExceptionHandler(0, HandleException);
 
     SERVICE_TABLE_ENTRY ServiceTable[] =
     {
@@ -29,6 +35,7 @@ int _tmain(int argc, TCHAR* argv[])
     }
 
     CCTV_LOG_DEBUG(_T("[CCTV_Service] Main: Exit"));
+
     return 0;
 }
 
@@ -172,6 +179,7 @@ VOID WINAPI ServiceCtrlHandler(DWORD CtrlCode)
 }
 
 
+int i = 0;
 DWORD WINAPI ServiceWorkerThread(LPVOID lpParam)
 {
     CCTV_LOG_DEBUG(_T("[CCTV_Service] ServiceWorkerThread: Entry"));
@@ -184,7 +192,14 @@ DWORD WINAPI ServiceWorkerThread(LPVOID lpParam)
          */
 
          //  Simulate some work by sleeping
-        Sleep(3000);
+        CCTV_LOG_DEBUG(_T("[CCTV_Service] Service sleep for 1 sec...."));
+        Sleep(1000);
+
+        i++;
+        if (i > 5) {
+            CCTV_LOG_DEBUG(_T("[CCTV_Service] Service crash here!"));
+            RaiseException(0xc0000374, 0, 0, NULL);
+        }
     }
 
     CCTV_LOG_DEBUG(_T("[CCTV_Service] ServiceWorkerThread: Exit"));

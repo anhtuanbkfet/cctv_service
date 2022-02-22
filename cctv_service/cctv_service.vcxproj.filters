@@ -24,12 +24,18 @@
     <ClCompile Include="Log.cpp">
       <Filter>utils</Filter>
     </ClCompile>
+    <ClCompile Include="WinDump.cpp">
+      <Filter>utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utils.hpp">
       <Filter>utils</Filter>
     </ClInclude>
     <ClInclude Include="Log.hpp">
+      <Filter>utils</Filter>
+    </ClInclude>
+    <ClInclude Include="WinDump.hpp">
       <Filter>utils</Filter>
     </ClInclude>
   </ItemGroup>
